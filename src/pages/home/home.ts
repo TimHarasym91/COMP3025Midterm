@@ -13,9 +13,11 @@ import {
 })
 export class HomePage {
   items: FirebaseListObservable<any>;
+  lists: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController, public alertCtrl: AlertController, af: AngularFire, public actionSheetCtrl: ActionSheetController) {
     this.items = af.database.list('/items');
+    this.lists = af.database.list('/lists');
   }
 
 // Add new item to the list
@@ -75,19 +77,6 @@ decreaseItem(itemId, itemAmount){
   });
 }
 
-updateStatus(itemId, itemStatus){
-  if(itemStatus == false){
-    this.items.update(itemId,{
-      status: true
-    });
-  }
-  else if(itemStatus == true){
-    this.items.update(itemId,{
-      status: false
-    });
-  }
-}
-
 //Clear the entire List
 clearList(){
   let prompt = this.alertCtrl.create({
@@ -109,6 +98,9 @@ clearList(){
     ]
   });
   prompt.present();
+}
+
+saveList(){
 }
 
 }
